@@ -10,6 +10,10 @@
     "dev": "pnpm --parallel --filter @repo/backend --filter @repo/client dev",
     "build": "pnpm --filter @repo/backend build && pnpm --filter @repo/client build",
     "typecheck": "pnpm -r typecheck",
-    "test": "pnpm -r test"
+    "test": "pnpm -r test",
+    "docker:start": "docker compose up --build -d",
+    "docker:logs": "docker compose logs -f",
+    "docker:stop": "docker compose down",
+    "docker:erase": "docker compose down -v --remove-orphans"
   }
 }
