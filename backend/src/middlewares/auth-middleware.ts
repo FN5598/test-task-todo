@@ -1,6 +1,6 @@
 import type { RequestHandler } from "express";
-import { UnauthorizedError } from "../errors/index.js";
-import { AuthTokenService } from "../services/index.js";
+import { UnauthorizedError } from "@errors/errors.js";
+import { AuthTokenService } from "@users/services/auth-token-service.js";
 
 declare global {
   namespace Express {

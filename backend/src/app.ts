@@ -3,11 +3,11 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import express from "express";
 import { pinoHttp } from "pino-http";
-import { getClientOrigin } from "./auth-config.js";
-import { errorMiddleware, notFoundMiddleware } from "./errors/index.js";
-import { logger } from "./logger.js";
-import { authRouter } from "./routes/auth-routes.js";
-import { taskRouter } from "./routes/task-routes.js";
+import { getClientOrigin } from "@config/auth-config.js";
+import { errorMiddleware, notFoundMiddleware } from "@middlewares/error-middleware.js";
+import { logger } from "@shared/logger.js";
+import { authRouter } from "@routes/auth.routes.js";
+import { taskRouter } from "@routes/task.routes.js";
 
 export const app = express();
 

@@ -1,8 +1,8 @@
 import { app } from "./app.js";
-import { getAuthConfig } from "./auth-config.js";
-import { sequelize } from "./database.js";
-import "./entities/index.js";
-import { logger } from "./logger.js";
+import { getAuthConfig } from "@config/auth-config.js";
+import { sequelize } from "@config/database.js";
+import "@shared/entities/register-models.js";
+import { logger } from "@shared/logger.js";
 
 const port = Number(process.env.PORT ?? 4000);
 

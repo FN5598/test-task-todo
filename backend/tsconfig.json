@@ -6,7 +6,17 @@
     "moduleResolution": "NodeNext",
     "outDir": "dist",
     "rootDir": "src",
-    "types": ["node"]
+    "types": ["node"],
+    "baseUrl": "./src",
+    "paths": {
+      "@shared/*": ["shared/*"],
+      "@config/*": ["config/*"],
+      "@users/*": ["users/*"],
+      "@tasks/*": ["tasks/*"],
+      "@errors/*": ["errors/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@routes/*": ["routes/*"]
+    }
   },
   "include": ["src/**/*.ts"]
 }
