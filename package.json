@@ -1,0 +1,15 @@
+{
+  "name": "express-next-monorepo",
+  "private": true,
+  "packageManager": "pnpm@10.0.0",
+  "engines": {
+    "node": ">=20.9.0",
+    "pnpm": ">=10.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel --filter @repo/backend --filter @repo/client dev",
+    "build": "pnpm --filter @repo/backend build && pnpm --filter @repo/client build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test"
+  }
+}
