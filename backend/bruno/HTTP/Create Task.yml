@@ -10,7 +10,6 @@ http:
     type: json
     data: |-
       {
-        "userId": "1b6f7954-f5ee-4a41-ad36-fea77e7c21d7",
         "title": "Some task",
         "description": "super good description",
         "status": "todo"

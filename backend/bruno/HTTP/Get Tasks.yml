@@ -5,7 +5,17 @@ info:
 
 http:
   method: GET
-  url: "{{BASE_URL}}/api/tasks/"
+  url: "{{BASE_URL}}/api/tasks"
+  params:
+    - name: page
+      value: "1"
+      type: query
+    - name: limit
+      value: "20"
+      type: query
+    - name: status
+      value: "{{?status}}"
+      type: query
   auth: inherit
 
 settings:

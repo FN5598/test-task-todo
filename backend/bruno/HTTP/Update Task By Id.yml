@@ -14,7 +14,9 @@ http:
     type: json
     data: |-
       {
-        "title": "Even better title"
+        "title": "Even better title",
+        "description": "Updated task description",
+        "status": "in_progress"
       }
   auth: inherit
 

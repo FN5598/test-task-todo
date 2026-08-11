@@ -1,15 +1,11 @@
 info:
-  name: Get Task By Id
+  name: Get Task Counts
   type: http
-  seq: 2
+  seq: 11
 
 http:
   method: GET
-  url: "{{BASE_URL}}/api/tasks/:id"
-  params:
-    - name: id
-      value: "{{?taskId}}"
-      type: path
+  url: "{{BASE_URL}}/api/tasks/counts"
   auth: inherit
 
 settings:

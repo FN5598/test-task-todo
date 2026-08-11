@@ -1,11 +1,11 @@
 info:
-  name: Refresh Token
+  name: Refresh Session (Frontend)
   type: http
   seq: 9
 
 http:
   method: POST
-  url: "{{BASE_URL}}/api/auth/refresh-token"
+  url: "{{CLIENT_URL}}/api/auth/refresh"
   auth: inherit
 
 settings:
