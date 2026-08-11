@@ -10,6 +10,7 @@ import {
 } from "../errors/index.js";
 import {
   AuthRepository,
+  type AuthRepositoryInterface,
   type CreateAuthSessionData,
   type CreateUserData,
 } from "../repositories/index.js";
@@ -44,7 +45,7 @@ export type RefreshResult = {
 };
 
 export class AuthService {
-  private readonly authRepository = new AuthRepository();
+  private readonly authRepository: AuthRepositoryInterface = new AuthRepository();
   private readonly authTokenService = new AuthTokenService();
 
   async signIn(input: SignInInput): Promise<AuthenticationResult> {

@@ -20,6 +20,27 @@ app.use(
 app.use(
   pinoHttp({
     logger,
+    quietReqLogger: true,
+    customSuccessMessage(request, response) {
+      return `${request.method} ${request.url} → ${response.statusCode}`;
+    },
+    customErrorMessage(request, response) {
+      return `${request.method} ${request.url} → ${response.statusCode}`;
+    },
+    customSuccessObject(request, _response, value) {
+      return {
+        requestId: request.id,
+        responseTime: value.responseTime,
+      };
+    },
+    customErrorObject(request, response, error, value) {
+      return {
+        requestId: request.id,
+        responseTime: value.responseTime,
+        statusCode: response.statusCode,
+        err: error,
+      };
+    },
     genReqId(request, response) {
       const header = request.headers["x-request-id"];
       const requestId = Array.isArray(header) ? header[0] : header;

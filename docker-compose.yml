@@ -10,6 +10,8 @@ services:
       DB_NAME: todo
       DB_USER: todo
       DB_PASSWORD: todo
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      LOG_PRETTY: ${LOG_PRETTY:-true}
       CLIENT_ORIGIN: ${CLIENT_ORIGIN:-http://localhost:3000}
       JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET}
       JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}

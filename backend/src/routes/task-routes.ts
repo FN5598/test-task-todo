@@ -8,6 +8,8 @@ export const taskRouter = Router();
 
 taskRouter.use(requireAccessToken);
 taskRouter.route("/").get(taskController.list).post(taskController.create);
+taskRouter.get("/counts", taskController.counts);
+taskRouter.get("/slug/:slug", taskController.getBySlug);
 taskRouter
   .route("/:taskId")
   .get(taskController.get)

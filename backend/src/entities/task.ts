@@ -20,6 +20,7 @@ export class Task extends Model<
   declare id: CreationOptional<string>;
   declare userId: string;
   declare title: string;
+  declare slug: string;
   declare description: CreationOptional<string>;
   declare status: CreationOptional<TaskStatus>;
   declare createdAt: CreationOptional<Date>;
@@ -48,6 +49,10 @@ Task.init(
         notEmpty: true,
       },
     },
+    slug: {
+      type: DataTypes.STRING(160),
+      allowNull: false,
+    },
     status: {
       type: DataTypes.ENUM(...Object.values(TaskStatus)),
       allowNull: false,
@@ -63,5 +68,12 @@ Task.init(
   {
     sequelize,
     tableName: "tasks",
+    indexes: [
+      {
+        name: "tasks_user_id_slug_unique",
+        unique: true,
+        fields: ["userId", "slug"],
+      },
+    ],
   },
 );

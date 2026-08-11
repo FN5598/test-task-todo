@@ -2,7 +2,9 @@ import {
   ConnectionError,
   DatabaseError as SequelizeDatabaseError,
   ForeignKeyConstraintError,
+  Op,
   TimeoutError,
+  UniqueConstraintError,
   ValidationError,
 } from "sequelize";
 import {
@@ -12,32 +14,45 @@ import {
   ServiceUnavailableError,
 } from "../errors/index.js";
 import { Task, TaskStatus } from "../entities/index.js";
+import type {
+  CreateTaskData,
+  TaskAccessScope,
+  TaskListFilters,
+  TaskPagination,
+  TaskRepositoryInterface,
+  UpdateTaskData,
+} from "./task-repository.interface.js";
 
-export type CreateTaskData = {
-  title: string;
-  description?: string;
-  status?: TaskStatus;
-};
-
-export type UpdateTaskData = {
-  title?: string;
-  description?: string;
-  status?: TaskStatus;
-};
-
-export type TaskAccessScope = {
-  userId: string;
-};
-
-export class TaskRepository {
-  async findAll(scope: TaskAccessScope) {
+export class TaskRepository implements TaskRepositoryInterface {
+  async findAll(scope: TaskAccessScope, filters: TaskListFilters, pagination: TaskPagination) {
     return this.execute("list tasks", () =>
-      Task.findAll({ where: scope, order: [["createdAt", "DESC"]] }),
+      Task.findAndCountAll({
+        where: this.listWhere(scope, filters),
+        order: [["createdAt", "DESC"]],
+        limit: pagination.limit,
+        offset: pagination.offset,
+      }),
     );
+  }
+
+  async countByStatus(scope: TaskAccessScope) {
+    return this.execute("count tasks", async () => {
+      const [total, active, done] = await Promise.all([
+        Task.count({ where: scope }),
+        Task.count({ where: { ...scope, status: { [Op.ne]: TaskStatus.DONE } } }),
+        Task.count({ where: { ...scope, status: TaskStatus.DONE } }),
+      ]);
+
+      return { total, active, done };
+    });
   }
 
   async findById(scope: TaskAccessScope, taskId: string) {
     return this.execute("find task", () => Task.findOne({ where: { id: taskId, ...scope } }));
+  }
+
+  async findBySlug(scope: TaskAccessScope, slug: string) {
+    return this.execute("find task", () => Task.findOne({ where: { slug, ...scope } }));
   }
 
   async create(scope: TaskAccessScope, data: CreateTaskData) {
@@ -70,6 +85,10 @@ export class TaskRepository {
   private toApplicationError(operation: string, error: unknown) {
     const options = { cause: error };
 
+    if (error instanceof UniqueConstraintError) {
+      return new ConflictError("A task with this title already exists", options);
+    }
+
     if (error instanceof ValidationError) {
       return new BadRequestError("Task data is invalid", options);
     }
@@ -87,5 +106,13 @@ export class TaskRepository {
     }
 
     return new InternalServerError(`Unable to ${operation}`, options);
+  }
+
+  private listWhere(scope: TaskAccessScope, filters: TaskListFilters) {
+    if (filters.status === "active") {
+      return { ...scope, status: { [Op.ne]: TaskStatus.DONE } };
+    }
+
+    return { ...scope, ...(filters.status ? { status: filters.status } : {}) };
   }
 }

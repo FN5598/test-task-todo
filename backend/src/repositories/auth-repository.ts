@@ -12,26 +12,14 @@ import {
   ServiceUnavailableError,
 } from "../errors/index.js";
 import { AuthSession, User } from "../entities/index.js";
+import type {
+  AuthRepositoryInterface,
+  CreateAuthSessionData,
+  CreateUserData,
+  RotateAuthSessionData,
+} from "./auth-repository.interface.js";
 
-export type CreateUserData = {
-  username: string;
-  email: string;
-  hashedPassword: string;
-};
-
-export type CreateAuthSessionData = {
-  id: string;
-  userId: string;
-  hashedRefreshToken: string;
-  expiresAt: Date;
-};
-
-export type RotateAuthSessionData = {
-  hashedRefreshToken: string;
-  expiresAt: Date;
-};
-
-export class AuthRepository {
+export class AuthRepository implements AuthRepositoryInterface {
   async createUser(data: CreateUserData) {
     return this.execute("create user", () => User.create(data));
   }
