@@ -1,14 +1,14 @@
-import CreateTodoForm from "@/UI/CreateTodoForm";
+import CreateTodoForm from "@ui/forms/CreateTodoForm";
 import { createTaskAction } from "../actions";
 import Link from "next/link";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "New Task",
-  description: "Create new todo tasks",
+  title: "Create task",
+  description: "Create a new Todo App task.",
 };
 
-export default async function Page({
+export default async function CreateTaskPage({
   searchParams,
 }: {
   searchParams: Promise<{ error?: string | string[] }>;

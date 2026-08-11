@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import AuthTokenRefresher from "@/UI/AuthTokenRefresher";
+import AuthTokenRefresher from "@ui/AuthTokenRefresher";
 
 export default function TasksLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (

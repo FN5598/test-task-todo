@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import type { Task } from "@/app/tasks/task-api";
-import { formatRelativeTime } from "@/lib/format-relative-time";
+import type { Task } from "@app/tasks/task-api";
+import { formatRelativeTime } from "@lib/format-relative-time";
 
 type TasksPageProps = {
   visibleTasks: Task[];

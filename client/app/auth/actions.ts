@@ -4,9 +4,8 @@ import { cookies } from "next/headers";
 import {
   loginSchema,
   signInSchema,
-  validateForm,
-  type FieldErrors,
-} from "@/lib/validators";
+} from "@lib/validators/auth";
+import { validateForm, type FieldErrors } from "@lib/validators/validate-form";
 import { redirect } from "next/navigation";
 
 type AuthenticationResponse = {
@@ -168,4 +167,29 @@ export async function signInAction(
   }
 
   redirect("/tasks");
+}
+
+export async function signOutAction() {
+  const cookieStore = await cookies();
+
+  try {
+    await fetch(`${getApiBaseUrl()}/auth/sign-out`, {
+      method: "POST",
+      headers: {
+        cookie: cookieStore.toString(),
+      },
+      cache: "no-store",
+    });
+  } finally {
+    cookieStore.set("access_token", "", {
+      expires: new Date(0),
+      path: "/",
+    });
+    cookieStore.set("refresh_token", "", {
+      expires: new Date(0),
+      path: "/api/auth",
+    });
+  }
+
+  redirect("/auth?tab=login");
 }

@@ -1,14 +1,19 @@
 import { notFound, redirect } from "next/navigation";
-import TaskDetailPage from "@/UI/TaskDetailPage";
-import { getTaskBySlug } from "@/app/tasks/task-api";
+import type { Metadata } from "next";
+import TaskDetailPage from "@ui/TaskDetailPage";
+import { getTaskBySlug } from "@app/tasks/task-api";
 import { deleteTaskAction } from "../actions";
-import { Metadata } from "next";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
-export default async function Page({ params }: Props) {
+export const metadata: Metadata = {
+  title: "Task details",
+  description: "View a Todo App task.",
+};
+
+export default async function TaskDetailsPage({ params }: Props) {
   const { slug } = await params;
   const result = await getTaskBySlug(slug);
 
@@ -21,11 +26,7 @@ export default async function Page({ params }: Props) {
   }
 
   if ("error" in result) {
-    return (
-      <main className="mx-auto max-w-2xl px-5 py-14 text-red-600 sm:px-8">
-        {result.error}
-      </main>
-    );
+    throw new Error(result.error);
   }
 
   return (

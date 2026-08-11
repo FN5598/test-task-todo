@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
-import Header from "@/UI/Header";
-import Footer from "@/UI/Footer";
+import Header from "@ui/header/Header";
+import Footer from "@ui/Footer";
 
 export const metadata: Metadata = {
   title: {

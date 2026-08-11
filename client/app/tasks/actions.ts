@@ -1,7 +1,8 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { createTaskSchema, updateTaskSchema, validateForm } from "@/lib/validators";
+import { createTaskSchema, updateTaskSchema } from "@lib/validators/task";
+import { validateForm } from "@lib/validators/validate-form";
 import { createTask, deleteTask, updateTask } from "./task-api";
 
 export async function createTaskAction(formData: FormData) {

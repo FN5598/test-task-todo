@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { LoginForm } from "@/UI/LoginForm";
-import { SignInForm } from "@/UI/SignInForm";
+import { LoginForm } from "@ui/forms/LoginForm";
+import { SignInForm } from "@ui/forms/SignInForm";
 
 type AuthTab = "signin" | "login";
 type PageProps = {
@@ -17,12 +17,16 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { tab } = await searchParams;
 
-  const tabName = getAuthTab(tab) === "signin" ? "Sign In" : "Log In";
+  const isSignIn = getAuthTab(tab) === "signin";
+  const tabName = isSignIn ? "Sign In" : "Log In";
 
-  return { title: tabName };
+  return {
+    title: tabName,
+    description: isSignIn ? "Create your Todo App account." : "Log in to your Todo App account.",
+  };
 }
 
-export default async function Page({ searchParams }: PageProps) {
+export default async function AuthPage({ searchParams }: PageProps) {
   const { tab } = await searchParams;
   const activeTab = getAuthTab(tab);
   const isLogin = activeTab === "login";

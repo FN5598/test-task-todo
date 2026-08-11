@@ -1,9 +1,9 @@
 import { notFound, redirect } from "next/navigation";
-import EditTaskForm from "@/UI/EditTaskForm";
-import { getTaskBySlug } from "@/app/tasks/task-api";
+import type { Metadata } from "next";
+import EditTaskForm from "@ui/forms/EditTaskForm";
+import { getTaskBySlug } from "@app/tasks/task-api";
 import { updateTaskAction } from "../../actions";
 import Link from "next/link";
-import { Metadata } from "next";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -11,11 +11,11 @@ type Props = {
 };
 
 export const metadata: Metadata = {
-  title: "Edit",
-  description: "Edit your existing tasks",
+  title: "Edit task",
+  description: "Edit your Todo App task.",
 };
 
-export default async function Page({ params, searchParams }: Props) {
+export default async function EditTaskPage({ params, searchParams }: Props) {
   const [{ slug }, { error }] = await Promise.all([params, searchParams]);
   const result = await getTaskBySlug(slug);
 
@@ -28,11 +28,7 @@ export default async function Page({ params, searchParams }: Props) {
   }
 
   if ("error" in result) {
-    return (
-      <main className="mx-auto max-w-2xl px-5 py-14 text-red-600 sm:px-8">
-        {result.error}
-      </main>
-    );
+    throw new Error(result.error);
   }
 
   return (

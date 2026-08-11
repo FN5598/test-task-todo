@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Task } from "@/app/tasks/task-api";
+import type { Task } from "@app/tasks/task-api";
 
 type TaskDetailPageProps = {
   deleteAction: () => void | Promise<void>;
@@ -74,7 +74,7 @@ export default function TaskDetailPage({
           This action cannot be undone.
         </p>
         <button
-          className="mt-5 h-11 border border-red-700 px-4 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-red-700 transition-colors hover:bg-red-700 hover:text-white"
+          className="mt-5 h-11 cursor-pointer border border-red-700 px-4 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-red-700 transition-colors hover:bg-red-700 hover:text-white"
           type="submit"
         >
           Delete task

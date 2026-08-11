@@ -1,7 +1,13 @@
-import TasksList from "@/UI/TasksList";
+import type { Metadata } from "next";
+import TasksList from "@ui/TasksList";
 import { getTaskCounts, listTasks } from "./task-api";
-import Unauthorized from "@/UI/Unauthorized";
+import Unauthorized from "@ui/Unauthorized";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "My tasks",
+  description: "View and manage your Todo App tasks.",
+};
 
 enum TaskFilter {
   ALL = "all",
@@ -41,7 +47,7 @@ function taskListHref(filter: TaskFilter, page: number) {
   return queryString ? `/tasks?${queryString}` : "/tasks";
 }
 
-export default async function Page({
+export default async function TasksPage({
   searchParams,
 }: {
   searchParams: Promise<{
@@ -66,10 +72,8 @@ export default async function Page({
   }
 
   if ("error" in listResult || "error" in countsResult) {
-    return (
-      <main className="mx-auto max-w-3xl px-5 py-14 text-red-600 sm:px-8">
-        {"error" in listResult ? listResult.error : countsResult.error}
-      </main>
+    throw new Error(
+      "error" in listResult ? listResult.error : countsResult.error,
     );
   }
 

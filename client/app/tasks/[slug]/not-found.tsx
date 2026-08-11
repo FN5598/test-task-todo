@@ -1,6 +1,12 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 
-export default function NotFoundTask() {
+export const metadata: Metadata = {
+  title: "Task not found",
+  description: "The requested Todo App task is unavailable.",
+};
+
+export default function TaskNotFoundPage() {
   return (
     <main className="flex flex-1 items-center justify-center px-5 py-12 sm:px-8">
       <section className="w-full max-w-lg p-7 sm:p-10">
