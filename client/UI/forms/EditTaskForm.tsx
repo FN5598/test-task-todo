@@ -65,15 +65,15 @@ export default function EditTaskForm({
         </p>
       ) : null}
 
-      <div className="flex flex-col gap-3 sm:flex-row">
+      <div className="grid gap-3 sm:grid-cols-2">
         <button
-          className="h-12 flex-1 cursor-pointer bg-primary px-4 font-mono text-sm font-semibold uppercase tracking-[0.12em] text-primary-foreground transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="flex h-12 w-full cursor-pointer items-center justify-center bg-primary px-4 font-mono text-sm font-semibold uppercase tracking-[0.12em] text-primary-foreground transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           type="submit"
         >
           Save changes
         </button>
         <Link
-          className="flex h-12 items-center justify-center border px-5 font-mono text-xs font-semibold uppercase tracking-[0.12em] transition-colors hover:bg-muted"
+          className="flex h-12 w-full items-center justify-center border px-5 font-mono text-xs font-semibold uppercase tracking-[0.12em] transition-colors hover:bg-muted"
           href={`/tasks/${encodeURIComponent(task.slug)}`}
         >
           Cancel

@@ -33,7 +33,6 @@ export default async function CreateTaskPage({
         action={createTaskAction}
         error={typeof error === "string" ? error : undefined}
       />
-      ;
     </main>
   );
 }
