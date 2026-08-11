@@ -10,6 +10,9 @@ services:
       DB_NAME: todo
       DB_USER: todo
       DB_PASSWORD: todo
+      CLIENT_ORIGIN: ${CLIENT_ORIGIN:-http://localhost:3000}
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
     ports:
       - "4000:4000"
     depends_on:

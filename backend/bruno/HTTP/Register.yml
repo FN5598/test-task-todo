@@ -1,0 +1,23 @@
+info:
+  name: Register
+  type: http
+  seq: 8
+
+http:
+  method: POST
+  url: "{{BASE_URL}}/api/auth/sign-in"
+  body:
+    type: json
+    data: |-
+      {
+        "username": "Bob Ross",
+        "email": "bobross@test.com",
+        "password": "super insane password"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

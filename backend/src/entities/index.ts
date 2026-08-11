@@ -1,3 +1,4 @@
+import { AuthSession } from "./auth-session.js";
 import { Task } from "./task.js";
 import { User } from "./user.js";
 
@@ -12,5 +13,16 @@ Task.belongsTo(User, {
   as: "user",
 });
 
-export { Task, User };
-export { type TaskStatus } from "./task.js";
+User.hasMany(AuthSession, {
+  foreignKey: "userId",
+  as: "authSessions",
+  onDelete: "CASCADE",
+});
+
+AuthSession.belongsTo(User, {
+  foreignKey: "userId",
+  as: "user",
+});
+
+export { AuthSession, Task, User };
+export { TaskStatus } from "./task.js";

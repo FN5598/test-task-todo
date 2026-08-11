@@ -11,7 +11,7 @@ RUN pnpm install --frozen-lockfile --filter @repo/backend...
 
 COPY backend ./backend
 
-RUN pnpm build
+RUN pnpm --filter @repo/backend build
 
 ENV NODE_ENV=production
 ENV PORT=4000

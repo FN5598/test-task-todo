@@ -1,4 +1,5 @@
 import { app } from "./app.js";
+import { getAuthConfig } from "./auth-config.js";
 import { sequelize } from "./database.js";
 import "./entities/index.js";
 import { logger } from "./logger.js";
@@ -6,6 +7,7 @@ import { logger } from "./logger.js";
 const port = Number(process.env.PORT ?? 4000);
 
 async function startServer() {
+  getAuthConfig();
   await sequelize.authenticate();
   logger.info("PostgreSQL connection established");
   await sequelize.sync();

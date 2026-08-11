@@ -1,12 +1,22 @@
 import { randomUUID } from "node:crypto";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import express from "express";
 import { pinoHttp } from "pino-http";
+import { getClientOrigin } from "./auth-config.js";
+import { errorMiddleware, notFoundMiddleware } from "./errors/index.js";
 import { logger } from "./logger.js";
+import { authRouter } from "./routes/auth-routes.js";
+import { taskRouter } from "./routes/task-routes.js";
 
 export const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: getClientOrigin(),
+    credentials: true,
+  }),
+);
 app.use(
   pinoHttp({
     logger,
@@ -28,16 +38,20 @@ app.use(
       }
 
       return "info";
-    }
-  })
+    },
+  }),
 );
 app.use(express.json());
+app.use(cookieParser());
 
-app.get("/health", (_request, response) => {
+const apiRouter = express.Router();
+
+apiRouter.get("/health", (_request, response) => {
   response.status(200).json({ status: "ok" });
 });
 
-app.use((error: unknown, request: express.Request, response: express.Response, _next: express.NextFunction) => {
-  request.log.error({ err: error }, "Unhandled request error");
-  response.status(500).json({ error: "Internal server error" });
-});
+apiRouter.use("/auth", authRouter);
+apiRouter.use("/tasks", taskRouter);
+app.use("/api", apiRouter);
+app.use(notFoundMiddleware);
+app.use(errorMiddleware);

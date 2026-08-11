@@ -1,0 +1,15 @@
+info:
+  name: Sign Out
+  type: http
+  seq: 10
+
+http:
+  method: POST
+  url: "{{BASE_URL}}/api/auth/sign-out"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
