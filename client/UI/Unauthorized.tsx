@@ -16,9 +16,9 @@ export default function Unauthorized() {
           corrupti magnam similique ab nobis distinctio, nihil veritatis dicta.
           Quia?
         </p>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+        <div className="mt-8">
           <Link
-            className="flex h-12 flex-1 items-center justify-center bg-primary px-4 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-primary-foreground transition-opacity hover:opacity-85"
+            className="flex h-12 w-full items-center justify-center bg-primary px-4 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-primary-foreground transition-opacity hover:opacity-85"
             href="/auth?tab=login"
           >
             Login
